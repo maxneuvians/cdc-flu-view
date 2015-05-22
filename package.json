@@ -1,0 +1,30 @@
+{
+  "name": "cdc-flu-view",
+  "version": "0.0.1",
+  "description": "A HighMaps implementation of CDC Flu view data",
+  "private": true,
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "test": "jasmine-node spec --coffee --forceexit  --captureExceptions"
+  },
+  "dependencies": {
+    "cheerio": "*",
+    "coffee-script": "*",
+    "express": "*",
+    "jade": "*",
+    "jasmine-node": "*",
+    "node-fakeweb": "*",
+    "request": "*"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/maxneuvians/cdc-flu-view"
+  },
+  "author": "Max Neuvians",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/maxneuvians/cdc-flu-view/issues"
+  },
+  "homepage": "https://github.com/maxneuvians/cdc-flu-view"
+}
