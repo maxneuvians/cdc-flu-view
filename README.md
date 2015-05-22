@@ -3,6 +3,8 @@ This is the code base for a mini app based on flu data available from the CDC. I
 
 This code provides not warranty or accuracy of the data displayed as it is taken directly from source. It is in no way officially affiliated with the CDC.
 
+Example: https://cdc-flu-view.herokuapp.com/
+
 ### Version
 1.0
 
