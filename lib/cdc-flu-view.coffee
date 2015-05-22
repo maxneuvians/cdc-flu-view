@@ -38,13 +38,14 @@ loadData = (res) ->
   return
 
 app.set('view engine', 'jade');
-app.use(express.static('public'));
+app.set('port', (process.env.PORT || 3000));
+app.use(express.static(__dirname + '/public'));
 
 app.get '/', (req, res) ->
   loadData res
   return
 
-server = app.listen(3000, ->
+server = app.listen(app.get('port'), ->
   console.log 'Listening on port %d', server.address().port
   return
 )
