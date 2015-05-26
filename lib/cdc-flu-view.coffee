@@ -12,28 +12,34 @@ loadData = (res) ->
     return
   ).on 'end', ->
 
-    data =
-      'No Report': []
-      'No Activity': []
-      'Sporadic': []
-      'Local Activity': []
-      'Regional': []
-      'Widespread': []
+    collection = []
 
     $ = cheerio.load(content)
-    i = 0
       
-    last_timeperiod = $("flureport").children().last()
-    title = last_timeperiod.attr("subtitle")
-    last_timeperiod.children().each (i, elem) ->
+    $("flureport").children().each (i, elem) ->
+      week_number = $(this).attr('year') + "-" + $(this).attr('number')
 
-      label = $(this).find("label").text()
-      state = $(this).find("abbrev").text()
+      data = 
+        'title': $(this).attr("subtitle")
+        'data':
+          'No Report': []
+          'No Activity': []
+          'Sporadic': []
+          'Local Activity': []
+          'Regional': []
+          'Widespread': []
 
-      data[label].push state
-      return
 
-    res.render('index', { title: title, data: data})
+      $(this).children().each (i, elem) ->
+
+        label = $(this).find("label").text()
+        state = $(this).find("abbrev").text()
+
+        data['data'][label].push state
+
+      collection.push data
+      
+    res.render('index', { collection: collection})
     return 
   return
 

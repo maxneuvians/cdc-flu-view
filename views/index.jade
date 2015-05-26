@@ -2,89 +2,25 @@ doctype html
 html(lang="en")
   head
     title
-      | CDC Flu View for #{title}
+      | CDC Flu View
       
     script(src='/javascripts/jquery-1.11.3.min.js')
     script(src='/javascripts/highmaps/highmaps.js')
     script(src='/javascripts/highmaps/data.js')
     script(src='//code.highcharts.com/mapdata/countries/us/us-all.js')
+    script(src='/javascripts/cdc_flu_view.js')
 
   body
-    #cdc_flu_view(style='width: 100%; height: 100vh;')
+    #cdc_flu_view(style='width: 100%; height: 100%;')
 
     script(type='text/javascript'). 
       $(function () {
+        $('#cdc_flu_view').height($(window).height() - 30);
+        collection = !{JSON.stringify(collection)}
+        current_index = collection.length - 1
+        drawMap(collection[current_index].title, collection[current_index].data);
+      });
 
-        data = !{JSON.stringify(data)}
-
-        series_data = []
-
-        colors = {
-          "No Report": "#e6e6e6",
-          "No Activity": "#fff",
-          "Sporadic": "#FEE391",
-          "Local Activity": "#EBE236",
-          "Regional": "#F0BB37",
-          "Widespread": "#B39874"
-        }
-
-        $.each(data, function (key, states) {
-
-            series = {
-              animation: {
-                  duration: 1000
-              },
-              data: $.map(data[key], function (code) {
-                  return { code: code };
-              }),
-              dataLabels: {
-                  enabled: true,
-                  color: '#000',
-                  format: '{point.code}'
-              },
-              name: key,
-              color: colors[key]
-            }
-            series_data.push(series)
-        });
-
-        // Instanciate the map
-        $('#cdc_flu_view').highcharts('Map', {
-
-            chart : {
-                borderWidth : 0
-            },
-
-            title : {
-                text: '#{title}'
-            },
-
-            subtitle : {
-                text: 'Source: http://www.cdc.gov/flu/weekly/flureport.xml'
-            },
-
-            legend: {
-                layout: 'horizontal',
-                borderWidth: 0,
-                verticalAlign: 'bottom',
-            },
-
-            mapNavigation: {
-                enabled: true
-            },
-
-            plotOptions: {
-              map: {
-                  allAreas: false,
-                  joinBy: ['postal-code', 'code'],
-                  mapData: Highcharts.maps['countries/us/us-all'],
-                  tooltip: {
-                      headerFormat: '',
-                      pointFormat: '{point.name}: <b>{series.name}</b>'
-                  }
-
-                }
-            },
-            series : series_data
-        });
+      $(window).resize(function(){
+        $('#cdc_flu_view').height($(window).height() - 30);
       });

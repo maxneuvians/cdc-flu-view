@@ -12,14 +12,6 @@ describe "App", ->
           expect(res.statusCode).toEqual 200
           done()
 
-    it "Sets the correct title object", ->
-
-      helper.withServer (r, done) ->
-        
-        r.get "/", (err, res, body) ->
-          expect(body.indexOf("<title>CDC Flu View for Week Ending May 09, 2015- Week 18</title>")).not.toEqual -1
-          done()
-
     it "creates a JSON representation of the XML data", ->
 
       helper.withServer (r, done) ->
